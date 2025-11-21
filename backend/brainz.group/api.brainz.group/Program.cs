@@ -1,5 +1,5 @@
 using api.brainz.group.Core;
-using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -12,8 +12,8 @@ builder.Services.AddJWTAuth(builder.Configuration);
 builder.Services.AddExceptionConfig();
 //set trust
 builder.Services.AddTrust();
-//TODO: database 
-
+//set database 
+builder.Services.AddDatabaseConfig(builder.Configuration);
 //TODO: injections
 
 var app = builder.Build();
@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+        options.DocExpansion(DocExpansion.None);
     });
 }
 
